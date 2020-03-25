@@ -5,7 +5,6 @@ import com.es.account.constant.RedEnvelope;
 import com.es.account.entity.Account;
 import com.es.account.entity.Transaction;
 import com.es.account.exception.AccountException;
-import com.es.account.modle.AccountVo;
 import com.es.account.repository.AccountRepository;
 import com.es.base.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;

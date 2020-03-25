@@ -24,10 +24,10 @@ import static org.springframework.data.repository.query.QueryLookupStrategy.Key.
 @EnableFeignClients(basePackages = {
         "com.es.account.service"
 })
-public class SchoolServiceAccountApplication {
+public class ESchoolServiceAccountApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SchoolServiceAccountApplication.class, args);
+        SpringApplication.run(ESchoolServiceAccountApplication.class, args);
     }
 
 }

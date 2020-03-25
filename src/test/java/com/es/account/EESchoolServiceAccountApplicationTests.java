@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ESchoolServiceAccountApplicationTests {
+public class EESchoolServiceAccountApplicationTests {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
