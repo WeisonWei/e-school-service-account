@@ -1,52 +1,63 @@
 package com.es.account.entity;
 
+import com.es.account.repository.AccountAuditListener;
 import com.es.base.util.DataUtils;
 import com.es.base.util.DateUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 
 @ApiModel(description = "用户账户")
 @Table(name = "t_account", indexes = @Index(name = "idx_user_id_account_type", columnList = "user_id,account_type"))
-@Entity
 @Data
-@DynamicInsert(true)
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @DynamicUpdate(true)
 @Accessors(chain = true)
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@EntityListeners({AuditingEntityListener.class, AccountAuditListener.class})
 public class Account extends BaseEntity {
 
+    @Builder.Default
     @ApiModelProperty("用户ID")
     @Column(name = "user_id", nullable = true, columnDefinition = BaseEntity.BIGINT_DEFAULT_0)
     private Long userId = null;
 
+    @Builder.Default
     @ApiModelProperty("账户类型")
     @Column(name = "account_type", nullable = true, columnDefinition = BaseEntity.INT_DEFAULT_0)
     private Account.AccountType accountType = null;
 
+    @Builder.Default
     @ApiModelProperty("余额")
     @Column(name = "balance", nullable = true, columnDefinition = BaseEntity.DECIMAL_DEFAULT_0)
     private Float balance = null;
 
+    @Builder.Default
     @ApiModelProperty("预计收入")
     @Column(name = "expected_amount", nullable = true, columnDefinition = BaseEntity.DECIMAL_DEFAULT_0)
     private Float expectedAmount = null;
 
+    @Builder.Default
     @ApiModelProperty("更新时间 yyyy-MM-dd hh24:mm:ss")
     @Column(name = "update_date", nullable = true, columnDefinition = BaseEntity.VARCHAR_DEFAULT_0)
     private String updateDate = null;
 
+    @Builder.Default
     @ApiModelProperty("备注")
     @Column(name = "remark", nullable = true, columnDefinition = BaseEntity.VARCHAR_DEFAULT_0)
     private String remark = null;
 
+    @Builder.Default
     @ApiModelProperty("乐观锁字段")
     @Column(name = "version", nullable = true, columnDefinition = BIGINT_DEFAULT_0)
     @Version //乐观锁字段

@@ -33,3 +33,4 @@ docs/
 
 ### Nodejs ###
 node_modules/
+*.log

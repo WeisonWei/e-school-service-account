@@ -8,17 +8,14 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.messaging.support.MessageBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Slf4j
@@ -27,9 +24,9 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @ToString(callSuper = true)
-@EntityListeners(AuditingEntityListener.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@EntityListeners({AuditingEntityListener.class})
 public abstract class BaseEntity implements Serializable {
 
     public static final String INT_DEFAULT_0 = "int default 0";
@@ -46,8 +43,7 @@ public abstract class BaseEntity implements Serializable {
     @ApiModelProperty("ID")
     @Id
     @javax.persistence.Id
-    @GeneratedValue(generator = "CustomizedGenerator")
-    @GenericGenerator(name = "CustomizedGenerator", strategy = "com.es.base.entity.Generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 

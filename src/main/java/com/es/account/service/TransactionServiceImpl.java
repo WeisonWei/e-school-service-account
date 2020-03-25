@@ -1,6 +1,5 @@
 package com.es.account.service;
 
-import com.es.account.config.AccountConfig;
 import com.es.account.entity.Account;
 import com.es.account.entity.Transaction;
 import com.es.account.repository.TransactionRepository;
@@ -25,8 +24,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    @Autowired
-    private AccountConfig accountConfig;
+    //@Autowired
+    //private AccountConfig accountConfig;
 
 
     @Override
@@ -51,7 +50,7 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction save = transactionRepository.save(transaction);
         try {
             Account account = accountService.updateAccountByExchangeTransaction(save);
-            return transactionRepository.save(save);
+            return save;
         } catch (Exception e) {
             save.setStatus(Transaction.STATUS.FAILED);
             save.setTransReturn(e.getMessage());
@@ -61,7 +60,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> getTransactions(long userId, Account.AccountType accountType) {
-        return transactionRepository.findAllByuserIdAndAccountType(userId);
+        return transactionRepository.findAllByUserIdAndAccountType(userId, accountType);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class TransactionServiceImpl implements TransactionService {
                                                   Transaction.TransType transType,
                                                   Transaction.STATUS status, int page) {
         Pageable pageable = PageRequest.of(page, 15);
-        return transactionRepository.findAllByuserIdAndAccountTypeAndTransTypeAndStatus(userId,
+        return transactionRepository.findAllByUserIdAndAccountTypeAndTransTypeAndStatus(userId,
                 accountType, transType, status, pageable);
     }
 

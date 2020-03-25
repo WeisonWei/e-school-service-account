@@ -11,16 +11,16 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends org.springframework.data.repository.CrudRepository<Transaction, Long> {
 
-    List<Transaction> findAllByuserIdAndAccountType(long userId);
+    List<Transaction> findAllByUserIdAndAccountType(long userId, Account.AccountType accountType);
 
     List<Transaction> findAllByuserId(long userId);
 
     Page<Transaction> findAllByAccountTypeAndTransTypeAndStatus(Account.AccountType cash, Transaction.TransType transType,
                                                                 Transaction.STATUS status, Pageable page);
 
-    List<Transaction> getAllByAccountTypeAndTransTypeAndStatus(Transaction.TransType transType,
+    List<Transaction> getAllByAccountTypeAndTransTypeAndStatus(Account.AccountType accountType, Transaction.TransType transType,
                                                                Transaction.STATUS status);
 
-    Page<Transaction> findAllByuserIdAndAccountTypeAndTransTypeAndStatus(long userId, Account.AccountType accountType, Transaction.TransType transType,
+    Page<Transaction> findAllByUserIdAndAccountTypeAndTransTypeAndStatus(long userId, Account.AccountType accountType, Transaction.TransType transType,
                                                                          Transaction.STATUS status, Pageable page);
 }

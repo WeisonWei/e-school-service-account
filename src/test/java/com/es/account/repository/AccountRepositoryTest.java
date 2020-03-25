@@ -57,8 +57,8 @@ public class AccountRepositoryTest extends RepositoryTest<AccountRepository, Acc
     @Test
     @Transactional(readOnly = true)
     public void findAllByUserIdAndAccountType() {
-        Stream<Account> allByuserIdAndAccountType = repository.findAllByUserIdAndAccountType(thisUserId, Account.AccountType.CASH);
-        List<Account> lastAccounts = allByuserIdAndAccountType.collect(Collectors.toList());
+        Stream<Account> allByUserIdAndAccountType = repository.findAllByUserIdAndAccountType(thisUserId, Account.AccountType.CASH);
+        List<Account> lastAccounts = allByUserIdAndAccountType.collect(Collectors.toList());
         assertTrue(lastAccounts.size() >= 1);
     }
 

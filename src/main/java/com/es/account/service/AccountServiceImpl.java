@@ -6,6 +6,7 @@ import com.es.account.entity.Account;
 import com.es.account.entity.Transaction;
 import com.es.account.exception.AccountException;
 import com.es.account.repository.AccountRepository;
+import com.es.api.model.AccountVo;
 import com.es.base.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class AccountServiceImpl implements AccountService {
         float expendTotalAmount = sumAmount(expendAmountList);
 
         return AccountVo.builder()
-                .accountType(accountType)
+                .accountType(AccountVo.AccountType.valueOf(accountType.toString()))
                 .balance(balance)
                 .userId(userId)
                 .build();
@@ -81,7 +82,7 @@ public class AccountServiceImpl implements AccountService {
                 getMonthFirstDateMill(), getMonthLastDateMill());
         float inComeAmountTotal = sumAmount(accounts);
         return AccountVo.builder()
-                .accountType(accountType)
+                .accountType(AccountVo.AccountType.valueOf(accountType.toString()))
                 .userId(userId)
                 .build();
     }

@@ -17,8 +17,6 @@ import java.util.stream.Stream;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long>, CrudRepository<Account, Long> {
 
-    Stream<Account> findAllByAccountType(long userId, Account.AccountType accountType);
-
     Stream<Account> findAllByUserIdAndAccountType(long userId, Account.AccountType accountType);
 
     Page<Account> findAllByAccountType(Account.AccountType accountType, Pageable pageable);
@@ -34,12 +32,10 @@ public interface AccountRepository extends JpaRepository<Account, Long>, CrudRep
     @Async
     CompletableFuture<Optional<Account>> findTop1ByUserIdAndAccountTypeOrderByUpdateTimeDesc(long userId, Account.AccountType accountType);
 
-    @Query(value = " from Account as a where a.userId = ?1  and CONCAT(a.accountType,a.update_time) " +
-            "in (select CONCAT(accountType,max(update_time)) from Account where accountType = ?2 group by accountType) ")
+    @Query(value = " from Account as a where a.userId = ?1  and CONCAT(a.accountType,a.updateTime) " +
+            "in (select CONCAT(accountType,max(updateTime)) from Account where accountType = ?2 group by accountType) ")
     List<Account> findLastAccountsByAccountType(long userId, Account.AccountType accountType);
 
     Boolean existsByUserIdAndAccountType(long userId, Account.AccountType accountType);
-
-    Optional<Account> findByUserIdAndAccountTypeAndSource(long userId, Account.AccountType accountType, long source);
 
 }
