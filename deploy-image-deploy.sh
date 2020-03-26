@@ -1,5 +1,5 @@
 #!/bin/sh
-params="-DskipTests -P local-nexus-repo,registry2,!build-swagger2markup-asciidoctor"
+params="-DskipTests -P local-nexus-repo,registry2"
 
 DIR=`dirname $0`
 echo ${DIR}
