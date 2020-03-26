@@ -1,10 +1,10 @@
 package com.es.account.controller;
 
+import com.es.api.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -12,6 +12,9 @@ public class CallController {
 
     @Autowired
     private LoadBalancerClient loadBalancer;
+
+    @Autowired
+    SessionService sessionService;
 
     @RequestMapping("/call")
     public String call() {
@@ -24,4 +27,15 @@ public class CallController {
         return callServiceResult;
     }
 
+    @PostMapping("/set/{name}")
+    public String setSession(@PathVariable("name") String name) {
+        String session = sessionService.setSession(name);
+        return session;
+    }
+
+    @GetMapping("/get/")
+    public String getSession() {
+        String session = sessionService.getSession();
+        return session;
+    }
 }
