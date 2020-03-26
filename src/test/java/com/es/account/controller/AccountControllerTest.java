@@ -89,7 +89,6 @@ public class AccountControllerTest extends CommonTest {
                         preprocessResponse(prettyPrint())));
     }
 
-
     @Test
     public void getRedEnvelope() throws Exception {
         Float aFloat = DataUtils.mockFloat();
@@ -105,6 +104,4 @@ public class AccountControllerTest extends CommonTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint())));
     }
-
-
 }
