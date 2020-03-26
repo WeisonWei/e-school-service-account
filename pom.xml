@@ -24,6 +24,7 @@
         <public.jacoco.dir>public/jacoco</public.jacoco.dir>
         <docker.image.prefix>${docker.image.version}</docker.image.prefix>
         <docker.image.version>${project.version}</docker.image.version>
+        <!--<docker.image.prefix>localhost:5000</docker.image.prefix>-->
     </properties>
 
     <distributionManagement>
@@ -38,6 +39,18 @@
             <url>${snapshots.url}</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>registry2</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <docker.image.prefix>localhost:5000</docker.image.prefix>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
