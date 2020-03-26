@@ -39,7 +39,7 @@ public class AccountController {
             @ApiQueryParam(name = "accountType", description = "账户类型")
             @RequestParam Account.AccountType accountType,
             @ApiQueryParam(name = "page", description = "分页页码")
-            @RequestParam Integer page) {
+            @PathVariable Integer page) {
         return ResponseEntity.ok(accountService.getAccounts(accountType, page));
     }
 

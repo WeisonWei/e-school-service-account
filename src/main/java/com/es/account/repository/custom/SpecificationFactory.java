@@ -32,6 +32,10 @@ public final class SpecificationFactory {
         return (root, query, cb) -> cb.between(root.get(attribute), min, max);
     }
 
+    public static Specification isBetween(String attribute, long min, long max) {
+        return (root, query, cb) -> cb.between(root.get(attribute), min, max);
+    }
+
     public static Specification isBetween(String attribute, Date min, Date max) {
         return (root, query, cb) -> cb.between(root.get(attribute), min, max);
     }

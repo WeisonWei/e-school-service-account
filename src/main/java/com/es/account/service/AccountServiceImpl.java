@@ -43,7 +43,6 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account getAccount(long userId, Account.AccountType accountType) {
         //不存在则插入Init数据
-
         return accountService.getLastCashOrPointsAccount(userId, accountType);
     }
 
@@ -158,7 +157,6 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public Account updateAccountByExchangeTransaction(Transaction transaction) {
@@ -172,7 +170,6 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-
     private float sumAmount(List<Account> accounts) {
         return accounts.stream()
                 .map(account -> DataUtils.getBigDecimal(account.getBalance()))
@@ -181,13 +178,11 @@ public class AccountServiceImpl implements AccountService {
                 .floatValue();
     }
 
-
     private List<Account> excludeIfExists(List<Account> accounts) {
         return accounts.parallelStream()
                 .filter(account -> !accountRepository.existsByUserIdAndAccountType(account.getUserId(), account.getAccountType()))
                 .collect(toList());
     }
-
 
     private List<Account> buildInitAccounts(Long userId) {
         return Stream.of(

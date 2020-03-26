@@ -15,31 +15,6 @@ management:
 spring:
   cloud:
     stream:
-      bindings:
-        input:
-          destination: queue.log.messages #要和output的destination一致, 这样才能将队列和写入消息的exchange关联起来
-          binder: rabbitBinder
-          group: ${spring.application.name}
-        output:
-          destination: queue.log.messages
-          binder: rabbitBinder
-
-      binders:
-        rabbitBinder:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                host: localhost
-                port: 5672
-                username: admin
-                password: 123123
-                virtual-host: demo
-
-
-spring:
-  cloud:
-    stream:
       default-binder: rabbit1
       bindings:
         input:
@@ -62,8 +37,8 @@ spring:
           environment:
             spring:
               rabbitmq:
-                host: ${AI_CLOUD_RABBITMQ_HOST:localhost}
-                port: ${AI_CLOUD_RABBITMQ_PORT:5672}
-                username: ${AI_CLOUD_RABBITMQ_USERNAME:admin}
-                password: ${AI_CLOUD_RABBITMQ_PASSWORD:123123}
-                virtual-host: ${AI_CLOUD_RABBITMQ_VIRTUAL_HOST:demo}
+                host: ${SERVICE_RABBITMQ_HOST:localhost}
+                port: ${SERVICE_RABBITMQ_PORT:5672}
+                username: ${SERVICE_RABBITMQ_USERNAME:admin}
+                password: ${SERVICE_RABBITMQ_PASSWORD:123123}
+                virtual-host: ${SERVICE_RABBITMQ_VIRTUAL_HOST:demo}

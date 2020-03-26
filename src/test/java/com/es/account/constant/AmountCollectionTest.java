@@ -25,21 +25,21 @@ public class AmountCollectionTest {
 
     @Before
     public void initData() throws Exception {
-        Account cashAccountIn = DataUtils.mockObj(Account.class);
+        Account cashAccountIn = DataUtils.mockObject(Account.class);
         cashAccountIn.setAccountType(Account.AccountType.CASH);
         cashAccountIn.setUserId(1l);
         cashAccountIn.setId(1l);
-        Account pointsAccountIn = DataUtils.mockObj(Account.class);
+        Account pointsAccountIn = DataUtils.mockObject(Account.class);
         pointsAccountIn.setAccountType(Account.AccountType.POINTS);
         pointsAccountIn.setUserId(1l);
         pointsAccountIn.setId(2l);
        
 
-        Account cashAccountOut = DataUtils.mockObj(Account.class);
+        Account cashAccountOut = DataUtils.mockObject(Account.class);
         cashAccountOut.setAccountType(Account.AccountType.CASH);
         cashAccountOut.setUserId(1l);
         cashAccountOut.setId(4l);
-        Account pointsAccountOut = DataUtils.mockObj(Account.class);
+        Account pointsAccountOut = DataUtils.mockObject(Account.class);
         pointsAccountOut.setAccountType(Account.AccountType.POINTS);
         pointsAccountOut.setUserId(1l);
         pointsAccountOut.setId(5l);

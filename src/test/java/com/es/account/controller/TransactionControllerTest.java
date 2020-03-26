@@ -42,7 +42,7 @@ public class TransactionControllerTest extends CommonTest {
 
     @Test
     public void createTransaction() throws Exception {
-        Transaction transaction = DataUtils.mockObj(Transaction.class);
+        Transaction transaction = DataUtils.mockObject(Transaction.class);
         when(transactionService.createCashTransaction(any(Transaction.class))).thenReturn(transaction);
         mockMvc.perform(post("/transactions")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +57,7 @@ public class TransactionControllerTest extends CommonTest {
 
     @Test
     public void updateTransaction() throws Exception {
-        Transaction transaction = DataUtils.mockObj(Transaction.class);
+        Transaction transaction = DataUtils.mockObject(Transaction.class);
         when(transactionService.updateTransaction(any(Transaction.class))).thenReturn(transaction);
         mockMvc.perform(put("/transactions")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +72,7 @@ public class TransactionControllerTest extends CommonTest {
 
     @Test
     public void getTransactions() throws Exception {
-        Page<Transaction> transactions = DataUtils.mockPage(Transaction.class);
+        Page<Transaction> transactions = DataUtils.mockPageable(Transaction.class);
         when(transactionService.getPagedTransactions(
                 any(long.class),
                 any(Account.AccountType.class),

@@ -18,7 +18,7 @@ public class AccountMessageHandler {
 
 
     @StreamListener(value = Sink.INPUT, condition = "headers['type'] == 'Message'")
-    public void processInviteEarningsMessage(String message) {
+    public void processMessage(String message) {
 
     }
 

@@ -41,7 +41,7 @@ public class AccountControllerTest extends CommonTest {
 
     @Test
     public void getAccount() throws Exception {
-        Account account = DataUtils.mockObj(Account.class);
+        Account account = DataUtils.mockObject(Account.class);
         when(accountService.getAccount(anyLong(), any(Account.AccountType.class))).thenReturn(account);
         mockMvc.perform(get("/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +57,7 @@ public class AccountControllerTest extends CommonTest {
 
     @Test
     public void getAccountError() throws Exception {
-        Account account = DataUtils.mockObj(Account.class);
+        Account account = DataUtils.mockObject(Account.class);
         Long userId = account.getUserId();
         when(accountService.getAccount(anyLong(), any(Account.AccountType.class))).thenThrow(new AccountException(500, "Account Exception!"));
         mockMvc.perform(get("/accounts")
@@ -72,7 +72,7 @@ public class AccountControllerTest extends CommonTest {
 
     @Test
     public void getAccounts() throws Exception {
-        Page<Account> accounts = DataUtils.mockPage(Account.class);
+        Page<Account> accounts = DataUtils.mockPageable(Account.class);
         Long userId = accounts.getContent().get(0).getUserId();
         when(accountService.getAccounts(any(Account.AccountType.class), any(int.class))).thenReturn(accounts);
         mockMvc.perform(get("/accounts")

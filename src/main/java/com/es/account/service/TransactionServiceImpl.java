@@ -1,5 +1,6 @@
 package com.es.account.service;
 
+import com.es.account.config.AccountConfig;
 import com.es.account.entity.Account;
 import com.es.account.entity.Transaction;
 import com.es.account.repository.TransactionRepository;
@@ -24,8 +25,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    //@Autowired
-    //private AccountConfig accountConfig;
+    @Autowired
+    private AccountConfig accountConfig;
 
 
     @Override
