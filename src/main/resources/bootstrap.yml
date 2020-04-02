@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+# Spring
+spring:
+  application:
+    name: e-school-service-account
+  main:
+    allow-bean-definition-overriding: true
+
+
+

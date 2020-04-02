@@ -1,7 +1,8 @@
+# Actuator
 management:
   health:
     rabbit:
-      enabled: false
+      enabled: true
   endpoints:
     web:
       exposure:
@@ -13,6 +14,23 @@ management:
       enabled: true
 
 spring:
+  # Datasource
+  datasource:
+    platform: ${SERVICE_DATASOURCE_PLATFORM:h2}
+    url: ${SCHOOL_DATASOURCE_URL:jdbc:h2:mem:account;MODE=MySQL}
+    username: ${SCHOOL_DATASOURCE_USERNAME:sa}
+    password: ${SCHOOL_DATASOURCE_PASSWORD:123123}
+    driver-class-name: ${SCHOOL_DATASOURCE_DRIVER:org.h2.Driver}
+
+  # Rabbitmq
+  rabbitmq:
+    host: ${AI_CLOUD_RABBITMQ_HOST:localhost}
+    port: ${AI_CLOUD_RABBITMQ_PORT:5672}
+    username: ${AI_CLOUD_RABBITMQ_USERNAME:admin}
+    password: ${AI_CLOUD_RABBITMQ_PASSWORD:123123}
+    virtual-host: ${AI_CLOUD_RABBITMQ_VIRTUAL_HOST:demo}
+
+  # Cloud
   cloud:
     stream:
       default-binder: rabbit1
@@ -24,21 +42,14 @@ spring:
         output:
           destination: ai-app-default
           binder: rabbit1
-        repositoryInput:
-          group: ${spring.application.name}
-          destination: ai-app-repository
-          binder: rabbit1
-        repositoryOutput:
-          destination: ai-app-repository
-          binder: rabbit1
       binders:
         rabbit1:
           type: rabbit
           environment:
             spring:
               rabbitmq:
-                host: ${SERVICE_RABBITMQ_HOST:localhost}
-                port: ${SERVICE_RABBITMQ_PORT:5672}
-                username: ${SERVICE_RABBITMQ_USERNAME:admin}
-                password: ${SERVICE_RABBITMQ_PASSWORD:123123}
-                virtual-host: ${SERVICE_RABBITMQ_VIRTUAL_HOST:demo}
+                host: ${SCHOOL_RABBITMQ_HOST:localhost}
+                port: ${SCHOOL_RABBITMQ_PORT:5672}
+                username: ${SCHOOL_RABBITMQ_USERNAME:admin}
+                password: ${SCHOOL_RABBITMQ_PASSWORD:123123}
+                virtual-host: ${SCHOOL_RABBITMQ_VIRTUAL_HOST:demo}

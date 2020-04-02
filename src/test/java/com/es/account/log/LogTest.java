@@ -1,7 +1,14 @@
+/*
 package com.es.account.log;
 
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
+
+<dependency>
+    <groupId>apache-log4j</groupId>
+     <artifactId>log4j</artifactId>
+    <version>1.2.15</version>
+</dependency>
 
 public class LogTest {
 
@@ -15,3 +22,4 @@ public class LogTest {
         logger.error("This is error message.");
     }
 }
+*/

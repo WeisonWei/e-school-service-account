@@ -5,7 +5,6 @@ import org.jsondoc.spring.boot.starter.EnableJSONDoc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -19,9 +18,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static org.springframework.data.repository.query.QueryLookupStrategy.Key.CREATE_IF_NOT_FOUND;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.es")
 @EnableAsync
-@EnableCaching
+//@EnableCaching
 @EnableJSONDoc
 @EnableSwagger2
 @EnableScheduling
@@ -33,8 +32,12 @@ import static org.springframework.data.repository.query.QueryLookupStrategy.Key.
 @EnableJpaRepositories(basePackages = "com.es.account.repository", queryLookupStrategy = CREATE_IF_NOT_FOUND)
 public class ESchoolServiceAccountApplication {
 
+    //@Lazy
     public static void main(String[] args) {
-        SpringApplication.run(ESchoolServiceAccountApplication.class, args);
+        //SpringApplication.run(ESchoolServiceAccountApplication.class, args);
+        SpringApplication springApplication = new SpringApplication(ESchoolServiceAccountApplication.class);
+        //springApplication.setLazyInitialization(true);
+        springApplication.run(args);
     }
 
 }

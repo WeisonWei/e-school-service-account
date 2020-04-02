@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <springProfile name="default">
-        <property name="service-log" value="service-log"></property>
+        <property name="SCHOOL_LOGSTASH" value="localhost:5044"></property>
+        <property name="app-name" value="account"></property>
     </springProfile>
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -13,7 +14,8 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>warn</level>
         </filter>
-        <file>logs/${@appId}-${spring.profiles.active}.spring.log</file>
+        <!--<file>logs/${@appId}-${spring.profiles.active}.spring.log</file>-->
+        <file>./${@appId}-${app-name}.spring.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>logs/${@appId}-${spring.profiles.active}.spring.log.%d{yyyy-MM-dd}</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -23,9 +25,8 @@
             </pattern>
         </encoder>
     </appender>
-
-    <!--<appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>localhost:5044</destination>
+    <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${SCHOOL_LOGSTASH}</destination>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
                 <mdc/>
@@ -34,7 +35,7 @@
                 <logLevel/>
                 <loggerName/>
                 <pattern>
-                    <pattern>{ "serviceName": "${@appId}-${spring.profiles.active}" }</pattern>
+                    <pattern>{ "serviceName": "account" }</pattern>
                 </pattern>
                 <threadName/>
                 <message/>
@@ -42,11 +43,18 @@
                 <arguments/>
             </providers>
         </encoder>
-    </appender>-->
+    </appender>
+
+    <!-- show parameters for hibernate sql 专为 Hibernate 定制 -->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG"/>
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/>
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/>
 
     <root level="info">
         <appender-ref ref="stdout"/>
-        <!--<appender-ref ref="stash"/>-->
+        <appender-ref ref="stash"/>
         <appender-ref ref="file"/>
     </root>
 </configuration>

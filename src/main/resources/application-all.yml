@@ -1,0 +1,103 @@
+# eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 60
+    health-check-url-path: /actuator/health
+  client:
+    registry-fetch-interval-seconds: 5
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      #defaultZone: http://node1:18761/eureka,http://node2:18762/eureka,http://node3:18763/eureka
+      #defaultZone: http://discovery:8761/eureka
+      defaultZone: http://localhost:8761/eureka
+
+# Actuator
+management:
+  health:
+    rabbit:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+
+# Spring
+spring:
+  application:
+    name: e-school-service-account
+  main:
+    allow-bean-definition-overriding: true
+  boot:
+    admin:
+      url: http://localhost:${server.port}
+
+  # Datasource
+  datasource:
+    platform: ${SERVICE_DATASOURCE_PLATFORM:h2}
+    url: ${SCHOOL_DATASOURCE_URL:jdbc:h2:mem:task;MODE=MySQL}
+    username: ${SCHOOL_DATASOURCE_USERNAME:sa}
+    password: ${SCHOOL_DATASOURCE_PASSWORD:123123}
+    driver-class-name: ${SCHOOL_DATASOURCE_DRIVER:org.h2.Driver}
+
+  # Zipkin
+  zipkin:
+    base-url: ${SCHOOL_ZIPKIN:http://localhost:9411/}
+    sender:
+      type: web
+
+  # Sleuth
+  sleuth:
+    sampler:
+      traceId128: true
+      probability: 1.0
+
+  # Redis
+  redis:
+    url: ${SCHOOL_REDIS_URL:redis://localhost:6379}
+    database: ${SCHOOL_REDIS_DATABASE:0}
+  cache:
+    type: redis
+    cache-names: account
+    redis:
+      cache-null-values: false
+      time-to-live: 3600000
+
+  # Cloud
+  cloud:
+    config:
+      label: master
+      uri: ${SCHOOL_CONFIG:http://localhost:8888/}
+      inetutils:
+        ignored-interfaces: ${INTUTILS_IGNORED_INTERFACES:^io,^vbox,^utun,^ll,^aw,^p2p,^bridge}
+        preferred-networks: ${INTUTILS_PREFERRED_NETWORKS:192.168,172.68}
+
+    stream:
+      default-binder: rabbit1
+      bindings:
+        input:
+          group: ${spring.application.name}
+          destination: ai-app-default
+          binder: rabbit1
+        output:
+          destination: ai-app-default
+          binder: rabbit1
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: ${SCHOOL_RABBITMQ_HOST:localhost}
+                port: ${SCHOOL_RABBITMQ_PORT:5672}
+                username: ${SCHOOL_RABBITMQ_USERNAME:admin}
+                password: ${SCHOOL_RABBITMQ_PASSWORD:123123}
+                virtual-host: ${SCHOOL_RABBITMQ_VIRTUAL_HOST:demo}
+

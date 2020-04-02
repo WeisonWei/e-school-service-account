@@ -15,7 +15,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class AspectjTransactionConfig {
 
-    public static final String transactionExecution = "execution (* com.sb..service.*.*(..))";
+    public static final String transactionExecution = "execution (* com.es..service.*.*(..))";
 
     @Autowired
     private PlatformTransactionManager transactionManager;

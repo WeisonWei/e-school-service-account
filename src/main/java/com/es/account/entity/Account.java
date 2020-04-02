@@ -14,7 +14,7 @@ import javax.persistence.*;
 
 
 @ApiModel(description = "用户账户")
-@Table(name = "t_account", indexes = @Index(name = "idx_user_id_account_type", columnList = "user_id,account_type"))
+@Table(name = "t_account", indexes = @Index(name = "idx_userId_accountType", columnList = "user_id,account_type"))
 @Data
 @ToString
 @Builder

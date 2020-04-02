@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 
 @ApiModel(description = "用户交易")
-@Table(name = "t_transaction", indexes = @Index(name = "idx_userId_account_type", columnList = "userId,account_type"))
+@Table(name = "t_transaction", indexes = @Index(name = "idx_userId_accountType", columnList = "user_id,account_type"))
 @Entity
 @Data
 @DynamicInsert(true)
@@ -25,7 +25,7 @@ import javax.persistence.Table;
 public class Transaction extends BaseEntity {
 
     @ApiModelProperty("用户ID")
-    @Column(name = "userId", nullable = true, columnDefinition = BaseEntity.BIGINT_DEFAULT_0)
+    @Column(name = "user_id", nullable = true, columnDefinition = BaseEntity.BIGINT_DEFAULT_0)
     private Long userId = null;
 
     @ApiModelProperty("账户类型")
