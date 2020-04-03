@@ -13,6 +13,7 @@ management:
     shutdown:
       enabled: true
 
+# spring
 spring:
   # Datasource
   datasource:
@@ -24,11 +25,11 @@ spring:
 
   # Rabbitmq
   rabbitmq:
-    host: ${AI_CLOUD_RABBITMQ_HOST:localhost}
-    port: ${AI_CLOUD_RABBITMQ_PORT:5672}
-    username: ${AI_CLOUD_RABBITMQ_USERNAME:admin}
-    password: ${AI_CLOUD_RABBITMQ_PASSWORD:123123}
-    virtual-host: ${AI_CLOUD_RABBITMQ_VIRTUAL_HOST:demo}
+    host: ${SCHOOL_RABBITMQ_HOST:localhost}
+    port: ${SCHOOL_RABBITMQ_PORT:5672}
+    username: ${SCHOOL_RABBITMQ_USERNAME:admin}
+    password: ${SCHOOL_RABBITMQ_PASSWORD:123123}
+    virtual-host: ${SCHOOL_RABBITMQ_VIRTUAL_HOST:demo}
 
   # Cloud
   cloud:

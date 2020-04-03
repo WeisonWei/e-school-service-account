@@ -47,6 +47,14 @@ spring:
     password: ${SCHOOL_DATASOURCE_PASSWORD:123123}
     driver-class-name: ${SCHOOL_DATASOURCE_DRIVER:org.h2.Driver}
 
+  # Rabbitmq
+  rabbitmq:
+    host: ${SCHOOL_RABBITMQ_HOST:localhost}
+    port: ${SCHOOL_RABBITMQ_PORT:5672}
+    username: ${SCHOOL_RABBITMQ_USERNAME:admin}
+    password: ${SCHOOL_RABBITMQ_PASSWORD:123123}
+    virtual-host: ${SCHOOL_RABBITMQ_VIRTUAL_HOST:demo}
+
   # Zipkin
   zipkin:
     base-url: ${SCHOOL_ZIPKIN:http://localhost:9411/}
