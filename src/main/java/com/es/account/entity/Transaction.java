@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 
 @ApiModel(description = "用户交易")
@@ -38,7 +39,7 @@ public class Transaction extends BaseEntity {
 
     @ApiModelProperty("金额")
     @Column(name = "amount", nullable = true, columnDefinition = BaseEntity.DECIMAL_DEFAULT_0)
-    private Float amount = null;
+    private BigDecimal amount = null;
 
     @ApiModelProperty("订单id")
     @Column(name = "order_id", nullable = true, columnDefinition = BaseEntity.BIGINT_DEFAULT_0)

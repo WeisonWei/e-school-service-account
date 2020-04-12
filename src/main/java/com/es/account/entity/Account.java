@@ -1,7 +1,6 @@
 package com.es.account.entity;
 
 import com.es.account.repository.AccountAuditListener;
-import com.es.base.util.DataUtils;
 import com.es.base.util.DateUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @ApiModel(description = "用户账户")
@@ -40,7 +40,7 @@ public class Account extends BaseEntity {
     @Builder.Default
     @ApiModelProperty("余额")
     @Column(name = "balance", nullable = true, columnDefinition = BaseEntity.DECIMAL_DEFAULT_0)
-    private Float balance = null;
+    private BigDecimal balance = null;
 
     @Builder.Default
     @ApiModelProperty("预计收入")
@@ -117,11 +117,10 @@ public class Account extends BaseEntity {
         EXCHANGE
     }
 
-
-    public Account newAccount(Float amount, Boolean isAdd) {
+    public Account newAccount(BigDecimal amount, Boolean isAdd) {
         Account account = this.newEmptyAccount();
-        float cashOrPointsBalance = isAdd ? DataUtils.floatAdd(this.balance, amount) : DataUtils.floatSubtract(this.balance, amount);
-        account.setBalance(cashOrPointsBalance);
+        BigDecimal newBalance = isAdd ? balance.add(amount) : balance.subtract(amount);
+        account.setBalance(newBalance);
         return account;
     }
 
@@ -133,8 +132,8 @@ public class Account extends BaseEntity {
         return account;
     }
 
-    public boolean isBalanceEnough(Float amount) {
-        return this.balance >= amount;
+    public boolean isBalanceEnough(BigDecimal amount) {
+        return this.balance.compareTo(amount) == -1 ? false : true;
     }
 
 }

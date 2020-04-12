@@ -7,7 +7,6 @@ import com.es.account.entity.Transaction;
 import com.es.account.exception.AccountException;
 import com.es.account.repository.AccountRepository;
 import com.es.api.model.AccountVo;
-import com.es.base.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountVo getAccountInfo(long userId, Account.AccountType accountType) {
 
-        float balance = accountService.getLastCashOrPointsAccount(userId, accountType).getBalance();
+        BigDecimal balance = accountService.getLastCashOrPointsAccount(userId, accountType).getBalance();
 
         List<Account> inComeAmountList = AmountCollection.getAmountList(userId, accountType, 0, accountRepository);
         float inComeTotalAmount = sumAmount(inComeAmountList);
@@ -142,7 +141,7 @@ public class AccountServiceImpl implements AccountService {
     public Account updateAccountByTransaction(Transaction transaction) {
         Float withdrawalLimit = 1f;
 
-        if (transaction.getAmount() < withdrawalLimit) {
+        if (transaction.getAmount().floatValue() < withdrawalLimit) {
             throw new AccountException("交易额度需大于" + withdrawalLimit + "元!");
         }
 
@@ -172,7 +171,7 @@ public class AccountServiceImpl implements AccountService {
 
     private float sumAmount(List<Account> accounts) {
         return accounts.stream()
-                .map(account -> DataUtils.getBigDecimal(account.getBalance()))
+                .map(account -> account.getBalance())
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .setScale(2, BigDecimal.ROUND_HALF_UP)
                 .floatValue();
@@ -196,7 +195,7 @@ public class AccountServiceImpl implements AccountService {
                 .setUserId(userId)
                 .setAccountType(accountType)
                 .setRemark(desc)
-                .setBalance(0f);
+                .setBalance(new BigDecimal("0"));
     }
 
     /**
